@@ -10,13 +10,29 @@ module.exports = function(grunt) {
         screenSizes: [ '400x800', '600x800', '1200x800' ],
         indexPath: 'public/photobox/'
       }
+    },
+
+    express: {
+      dev: {
+        options: {
+          //background: false,
+          script: './app.js'
+        }
+      }
+    },
+
+    watch: {
+      files: ['./public/css/main.css'],
+      tasks: ['photobox']
     }
 
   } );
 
   // Load photobox plugin
   grunt.loadNpmTasks( 'grunt-photobox' );
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask( 'default', [ 'photobox' ] );
+  grunt.registerTask( 'default', [ 'express:dev', 'watch' ] );
 };

@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', routes);
-//app.use('/users', users);
+app.use('/test', routes);
+app.use('/users', users);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,4 +56,11 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+var debug = require('debug')('myapp');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + server.address().port);
+    debug('Express server listening on port ' + server.address().port);
+});
